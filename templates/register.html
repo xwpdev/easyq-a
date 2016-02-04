@@ -1,0 +1,27 @@
+<section class="container" ng-controller="registerController as regCtrl" ng-init="init();">
+    <div class="login-container">
+        <div>
+            <h2>Register</h2>
+        </div>
+        <div id="output"></div>
+        <div class="form-box">
+            <form method="POST" ng-submit="registerForm.$valid && register()" name="registerForm">
+                <input name="userEmail" ng-model="userEmail" type="email" placeholder="Email*" required class="form-control">
+                <input name="userPass"  type="password" placeholder="Password*" required class="form-control">
+                <input name="userPassRe" ng-model="userPassRe" type="password" placeholder="Re-type Password*" required class="form-control">
+                <br>
+                <select name="userTitle" class="form-control" ng-model="userTitle">
+                    <option value="1">Mr.</option>
+                    <option value="2">Mrs.</option>
+                    <option value="3">Miss.</option>
+                    <option value="4">Dr.</option>
+                    <option value="5">Ven.</option>
+                </select>
+                <input name="userName" ng-model="userName" type="text" placeholder="Name*" required class="form-control">
+                <textarea name="userAddress" ng-model="userAddress" style="max-width:100%" class="form-control" placeholder="Address"></textarea>
+                <input name="userContact" ng-model="userContact" type="number" class="form-control" placeholder="Contact*" max="9999999999" min="0" required>
+                <button class="btn btn-success btn-block login" type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+</section>
