@@ -53,7 +53,12 @@
     app.controller('registerController', function ($scope, questionService) {
         $scope.init = function () {
             $scope.userTitle = "1";
+            $scope.status = false;
+            $scope.css = 'warning';
+            $scope.message = '';
         }
+
+
 
         $scope.register = function () {
             var data = {
@@ -67,10 +72,21 @@
 
             questionService.registerUser(data)
                 .success(function (d) {
-                    console.log(d);
+                    $scope.status = true
+                    if (d) {
+                        $scope.css = 'success';
+                        $scope.message = 'Registration Success. Continue to Login';
+                    }
+                    else {
+                        $scope.css = 'danger';
+                        $scope.message = 'Registration failed. Please try again';
+                    }
                 })
                 .error(function (e) {
                     console.log(e);
+                    // window.location.reload();
+                    $scope.css = 'danger';
+                    $scope.message = 'Registration failed. Please try again';
                 })
         };
     });

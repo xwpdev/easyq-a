@@ -3,7 +3,11 @@
         <div>
             <h2>Register</h2>
         </div>
-        <div id="output"></div>
+        <div id="output">
+            <div class="alert alert-{{css}}" ng-show="status">
+                {{message}}
+            </div>
+        </div>
         <div class="form-box">
             <form method="POST" ng-submit="registerForm.$valid && register()" name="registerForm">
                 <input name="userEmail" ng-model="userEmail" type="email" placeholder="Email*" required class="form-control">
