@@ -1,17 +1,21 @@
 <section class="container">
-    <div class="login-container">
+    <div class="login-container" ng-controller="loginController as loginCtrl" ng-init="init();">
         <div>
             <h2>Login</h2>
         </div>
-        <div id="output"></div>
+        <div id="output">
+            <div class="alert alert-{{css}}" ng-hide="status">
+                {{message}}
+            </div>
+        </div>
         <div class="form-box">
-            <form action="" method="">
-                <input name="userEmail" type="email" placeholder="Email*" required class="form-control">
-                <input name="userPass" type="password" placeholder="Password*" required class="form-control">
+            <form method="POST" ng-submit="validateUser()" id="loginForm">
+                <input name="userEmail" ng-model="userEmail" type="email" placeholder="Email*" required class="form-control">
+                <input name="userPass" ng-model="userPass" type="password" placeholder="Password*" required class="form-control">
                 <button class="btn btn-success btn-block login" type="submit">Login</button>
-                <span>or</span>
-                <a href="#/register" class="btn btn-info btn-block login">Register</a>
             </form>
+            <span>or</span>
+            <a href="#/register" class="btn btn-info btn-block login">Register</a>
         </div>
     </div>
 </section>

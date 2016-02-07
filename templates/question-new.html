@@ -1,0 +1,42 @@
+<div ng-controller="questionController as questionCtrl" ng-init="init()">
+    <form method="POST" ng-submit="saveQuestion()">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Enter your question and details</h2>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" placeholder="Question title" class="form-control" required name="title"
+                       ng-model="title">
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-6">
+                <textarea class="form-control textarea-max" placeholder="Describe your question" required name="desc"
+                          title="desc"></textarea>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" placeholder="Keywords / Tags" class="form-control" name="tags" ng-model="tags"
+                       data-toggle="tooltip" title="Separate tags by ';'">
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-success" value="Save Question">
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="alert alert-{{css}}" ng-hide="status">
+                {{message}}
+            </div>
+        </div>
+    </form>
+</div>

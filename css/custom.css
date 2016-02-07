@@ -6,13 +6,45 @@
 /*body{background: #eee url(http://subtlepatterns.com/patterns/sativa.png);}*/
 html, body {
     position: relative;
-    height: 95%;
+    /*height: 95%;*/
+}
+
+body {
+    /*color: #cccccc;*/
+    /*background-size: contain;*/
+    /*background: url('../img/main.jpg') no-repeat;*/
+    background-color: #f2f2f2;
+}
+
+.section-padding-top {
+    margin-top: 80px !important;
+}
+
+/*@media (max-width: 320px) {*/
+/*.section-padding-top {*/
+/*padding-top: 50px !important;*/
+/*}*/
+/*}*/
+
+/*.no-padding {*/
+/*padding-left: 0px;*/
+/*padding-right: 0px;*/
+/*}*/
+
+.set-back {
+    background-color: white;
+    padding: 10px;
+    /*border-radius: 10px;*/
+}
+
+.textarea-max{
+    max-width: 100%;
 }
 
 .login-container {
     position: relative;
     width: 320px;
-    margin: 60px auto;
+    margin: 40px auto;
     padding: 5px 30px 25px;
     text-align: center;
     background: #fff;

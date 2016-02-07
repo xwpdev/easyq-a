@@ -13,5 +13,5 @@ class Question
     public $text;
     public $userId;
     public $assignedUserId;
-    public $askedData;
+    public $askedDate;
 }

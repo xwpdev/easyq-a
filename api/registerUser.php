@@ -22,4 +22,8 @@ $tempUser->isActive = true;
 
 $response = UserRepository::registerUser($tempUser);
 
-echo json_encode($response);
+$obj = new stdClass;
+$obj->d = $response;
+$obj->s = true;
+
+echo json_encode($obj);
