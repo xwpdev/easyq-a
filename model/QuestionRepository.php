@@ -26,4 +26,9 @@ class QuestionRepository
             }
         }
     }
+
+    public static function saveTags($tagStr = "")
+    {
+
+    }
 }

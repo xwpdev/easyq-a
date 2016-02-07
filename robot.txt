@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /css/
+Disallow: /helpers/
+Disallow: /js/
+Disallow: /model/
+Disallow: /js/

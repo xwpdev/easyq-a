@@ -2,7 +2,13 @@
 // mod by CS
 // written on 25-01-2016
 (function () {
-    var app = angular.module('QuestionApp', ['ui.bootstrap', 'ngRoute'])
+    var app = angular.module('QuestionApp', [
+            'ui.bootstrap',
+            'ngRoute',
+            'ui.tinymce',
+            'ngTagsInput'
+
+        ])
         .run(function ($rootScope, questionService) {
             console.log("Easy Q & A is alive");
             var data = {};
@@ -145,10 +151,10 @@
 
             questionService.validateUser(data)
                 .success(function (d) {
-                    // console.log(d);
-                    if (d.d.userType) {
+                    if (d.d.id > 0) {
+                        $rootScope.logged = true;
+                        $rootScope.loginText = d.d.name;
                         $scope.css = 'success';
-                        // $scope.message = 'Registration Success. Continue to Login';
                         $location.path('/dashboard');
                     }
                     else {
@@ -220,6 +226,12 @@
             $scope.css = 'warning';
             $scope.message = '';
         }
+
+        $scope.tinymceOptions = {
+            plugins: 'advlist autolink link image lists charmap print preview textcolor',
+            toolbar: 'insertfile undo redo | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+        };
+
         $scope.saveQuestion = function ($scope, questionService) {
             var data = {
                 qTitle: $scope.title,

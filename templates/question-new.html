@@ -15,15 +15,17 @@
         <br/>
         <div class="row">
             <div class="col-md-6">
-                <textarea class="form-control textarea-max" placeholder="Describe your question" required name="desc"
-                          title="desc"></textarea>
+                <textarea ui-tinymce="tinymceOptions" class="form-control textarea-max"
+                          placeholder="Describe your question" required
+                          name="desc" ng-model="desc"></textarea>
             </div>
         </div>
         <br/>
         <div class="row">
             <div class="col-md-6">
-                <input type="text" placeholder="Keywords / Tags" class="form-control" name="tags" ng-model="tags"
-                       data-toggle="tooltip" title="Separate tags by ';'">
+                <!--<input type="text" placeholder="Keywords / Tags" class="form-control" name="tags" ng-model="tags"-->
+                       <!--data-toggle="tooltip" title="Separate tags by ';'">-->
+                <tags-input ng-model="tags"></tags-input>
             </div>
         </div>
         <br/>
@@ -32,7 +34,7 @@
                 <input type="submit" class="btn btn-success" value="Save Question">
             </div>
         </div>
-        <br />
+        <br/>
         <div class="row">
             <div class="alert alert-{{css}}" ng-hide="status">
                 {{message}}
