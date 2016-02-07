@@ -232,15 +232,25 @@
             toolbar: 'insertfile undo redo | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
         };
 
-        $scope.saveQuestion = function ($scope, questionService) {
+        $scope.saveQuestion = function () {
             var data = {
-                qTitle: $scope.title,
-                qDesc: $scope.desc,
-                qTags: $scope.tags,
+                qTitle: $scope.qTitle,
+                qDesc: $scope.qDesc,
+                qTags: $scope.qTags
             };
 
             questionService.saveQuestion(data).success(function (d) {
-                console.log(d);
+                // console.log(d);
+                $scope.status = false;
+                if (d.s) {
+                    $scope.css = 'success';
+                    $scope.message = 'Successfully saved';
+                    $location.path('/dashboard');
+                }
+                else {
+                    $scope.css = 'danger';
+                    $scope.message = 'Error saving question. Please try again';
+                }
             });
         }
     });

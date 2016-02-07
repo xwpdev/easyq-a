@@ -1,13 +1,14 @@
 <?php
-require 'User.php';
-require '../helpers/DbHelper.php';
-
 /**
  * Created by PhpStorm.
  * User: Charith
  * Date: 2/4/2016
  * Time: 3:00 PM
  */
+
+require 'User.php';
+require '../helpers/DbHelper.php';
+
 class UserRepository
 {
     public static function registerUser($tempUser = null)
@@ -25,8 +26,9 @@ class UserRepository
 
             } catch (Exception $ex) {
 
+            } finally {
+                DbHelper::closeConn();
             }
-            DbHelper::closeConn();
         }
     }
 
@@ -58,8 +60,9 @@ class UserRepository
             return ($obj);
         } catch (Exception $ex) {
 
+        } finally {
+            DbHelper::closeConn();
         }
 
-        DbHelper::closeConn();
     }
 }

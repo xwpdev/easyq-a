@@ -29,8 +29,20 @@ $question->text = $desc;
 $question->askedDate = getdate();
 $question->userId = $tempUser->id;
 
-$response = QuestionRepository::saveQuestion($question);
+$qId = QuestionRepository::saveQuestion($question);
 
-$response = QuestionRepository::saveTags($tags);
+$obj = new stdClass();
 
-echo json_encode($question);
+if ($qId > 0) {
+    $response = QuestionRepository::saveTags($tags, $qId);
+    if ($response) {
+        $obj->s = true;
+    }
+    else{
+        $obj->s = false;
+    }
+} else {
+    $obj->s = false;
+}
+
+echo json_encode($obj);
