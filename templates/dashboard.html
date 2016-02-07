@@ -13,17 +13,19 @@
             <a href="#/question-new" class="btn btn-info">Add New Question</a>
         </div>
     </div>
-    <br />
+    <br/>
     <div class="row">
         <div class="col-md-12">
             <table class="table table-bordered table-responsive set-back">
                 <tr>
                     <th class="h4">Questions</th>
+                    <th>Asked on</th>
                 </tr>
-                <tr>
+                <tr ng-repeat="d in qData">
                     <td>
-                        <a href="#/question-view?{{id}}" ng-cloak class="h6">Sample Question</a>
+                        <a href="#/question-view?{{d.id}}" ng-cloak class="h6">{{d.title}}</a>
                     </td>
+                    <td>{{d.asked_date}}</td>
                 </tr>
             </table>
         </div>

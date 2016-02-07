@@ -11,6 +11,12 @@ class DbHelper
         $password = "";
         $dbName = "easyqadb";
 
+        // CLOUD
+        // $serverName = "mysql2.gear.host";
+        // $username = "easyqadb";
+        // $password = "Tk00_4?XmoO9";
+        // $dbName = "easyqadb";
+
         // Create connection
         self::$conn = new mysqli($serverName, $username, $password, $dbName);
 

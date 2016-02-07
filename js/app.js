@@ -95,6 +95,14 @@
                     data: data,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
+            },
+            getQuestionData: function (data) {
+                return $http({
+                    method: 'POST',
+                    url: baseUrl + 'getDashboardData.php',
+                    data: data,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
             }
         };
     });
@@ -213,11 +221,21 @@
 
     app.controller('dashboardController', function ($scope, $location, questionService) {
         $scope.searchOption = "1";
-
-        $scope.getData = function () {
-            // console.log('change works' + $scope.searchOption);
+        $scope.qData = '';
+        $scope.init = function () {
+            $scope.getData();
         }
-
+        $scope.getData = function () {
+            var data = {
+                f: $scope.searchOption
+            };
+            questionService.getQuestionData(data).success(function (d) {
+                console.log(d);
+                if (d.s) {
+                    $scope.qData = d.data;
+                }
+            });
+        }
     });
 
     app.controller('questionController', function ($scope, $location, questionService) {

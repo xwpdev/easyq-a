@@ -53,4 +53,57 @@ class QuestionRepository
             DbHelper::closeConn();
         }
     }
+
+    public static function getQuestions($filter)
+    {
+        $obj = new stdClass();
+        $con = DbHelper::openConn();
+
+        try {
+            $sql = sprintf("SELECT * FROM easyqadb.question");
+
+            /**
+             * 1 - All
+             * 2 - Unassigned
+             * 3 - Unanswered
+             * 4 - Assigned & Answered
+             */
+            switch ($filter) {
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                case "4":
+                    $sql .= sprintf("WHERE assigned_user_id IS NOT NULL");
+                    break;
+                default:
+                    break;
+            }
+
+            $result = DbHelper::runQuery($sql);
+
+            $obj->data = array();
+
+            while ($r = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                $rows['id'] = $r['id'];
+                $rows['title'] = $r['title'];
+                $rows['text'] = $r['text'];
+                $rows['asked_date'] = $r['asked_date'];
+
+                array_push($obj->data, $rows);
+            }
+
+            $result->free();
+
+            $obj->s = true;
+
+        } catch (Exception $ex) {
+            $obj->s = false;
+        } finally {
+            DbHelper::closeConn();
+            return $obj;
+        }
+    }
 }
