@@ -76,11 +76,13 @@ class QuestionRepository
                 case "3":
                     break;
                 case "4":
-                    $sql .= sprintf("WHERE assigned_user_id IS NOT NULL");
+                    $sql .= sprintf(" WHERE assigned_user_id IS NOT NULL");
                     break;
                 default:
                     break;
             }
+
+            $sql .=sprintf(" ORDER BY asked_date DESC");
 
             $result = DbHelper::runQuery($sql);
 

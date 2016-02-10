@@ -6,6 +6,7 @@
  * Time: 3:10 PM
  */
 require '../model/UserRepository.php';
+require '../helpers/MailHelper.php';
 
 header('Content-type: application/json');
 
@@ -21,6 +22,8 @@ $tempUser->contact = $postData["userContact"];
 $tempUser->isActive = true;
 
 $response = UserRepository::registerUser($tempUser);
+
+MailHelper::sendEmail($tempUser->email,"Registration Success","You have successfully registered with the Easy Q & A.");
 
 $obj = new stdClass;
 $obj->d = $response;

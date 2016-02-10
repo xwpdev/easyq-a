@@ -11,7 +11,7 @@
             </select>
         </div>
         <div class="col-md-6">
-            <a href="#/question-new" class="btn btn-info">Add New Question</a>
+            <a href="#/user-add" class="btn btn-info">Add User</a>
         </div>
     </div>
     <br/>
@@ -19,14 +19,20 @@
         <div class="col-md-12">
             <table class="table table-bordered table-responsive set-back">
                 <tr>
-                    <th class="h4" style="width: 70%">Questions</th>
-                    <th style="width:30%">Asked on</th>
+                    <th class="h4" style="width: 50%">Questions</th>
+                    <th style="width:25%">Asked on</th>
+                    <th style="width:25%">Assign To</th>
                 </tr>
                 <tr ng-repeat="d in qData">
                     <td>
                         <a href="#/question-view?{{d.id}}" ng-cloak class="h6">{{d.title}}</a>
                     </td>
                     <td>{{d.asked_date}}</td>
+                    <td>
+                        <select>
+
+                        </select>
+                    </td>
                 </tr>
             </table>
         </div>

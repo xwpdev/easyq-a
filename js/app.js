@@ -30,6 +30,14 @@
                 templateUrl: 'templates/register.html',
                 controller: 'registerController'
             })
+            .when('/admin', {
+                templateUrl: 'templates/dash-admin.html',
+                controller: 'questionController'
+            })
+            .when('/lecturer', {
+                templateUrl: 'templates/dash-lec.html',
+                controller: 'questionController'
+            })
             .when('/dashboard', {
                 templateUrl: 'templates/dashboard.html',
                 controller: 'dashboardController'
@@ -40,6 +48,10 @@
             })
             .when('/question-new', {
                 templateUrl: 'templates/question-new.html',
+                controller: 'questionController'
+            })
+            .when('/user-add', {
+                templateUrl: 'templates/user-add.html',
                 controller: 'questionController'
             })
     });
@@ -163,7 +175,24 @@
                         $rootScope.logged = true;
                         $rootScope.loginText = d.d.name;
                         $scope.css = 'success';
-                        $location.path('/dashboard');
+                        switch (d.d.userType) {
+                            case "1":
+                                // admin
+                                $location.path('/admin');
+                                break;
+                            case "2":
+                                // student
+                                $location.path('/dashboard');
+                                break;
+                            case "3":
+                                // lecturer
+                                $location.path('/lecturer');
+                                break;
+                            case "4":
+                                // moderator
+                                $location.path('/admin');
+                                break;
+                        }
                     }
                     else {
                         $scope.css = 'danger';
