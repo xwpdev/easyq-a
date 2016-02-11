@@ -1,7 +1,7 @@
 <h1>Welcome, {{loginText}}</h1>
 <div ng-controller="dashboardController as dashCtrl" ng-init="init()">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <select class="form-control" ng-change="getData()" ng-model="searchOption"
                     title="Change to update quizzes" data-toggle="tooltip">
                 <option value="1">All</option>
@@ -20,18 +20,30 @@
             <table class="table table-bordered table-responsive set-back">
                 <tr>
                     <th class="h4" style="width: 50%">Questions</th>
-                    <th style="width:25%">Asked on</th>
-                    <th style="width:25%">Assign To</th>
+                    <th style="width:20%">Asked on</th>
+                    <th style="width:30%">Assign To</th>
                 </tr>
                 <tr ng-repeat="d in qData">
                     <td>
-                        <a href="#/question-view?{{d.id}}" ng-cloak class="h6">{{d.title}}</a>
+                        <a href="#/question-view?{{d.id}}" ng-cloak class="h6">
+                            <label class="text-info">
+                                {{d.title}}
+                            </label>
+                        </a>
                     </td>
                     <td>{{d.asked_date}}</td>
                     <td>
-                        <select>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <select name="lecturerSelect" id="lecturerSelect" class="form-control"
+                                        ng-options="option.name for option in lecturers track by option.id"
+                                        ng-model="assignedLec"></select>
+                            </div>
+                            <div class="col-md-3 pull-right">
+                                <input type="button" value="Save" class="btn btn-info btn-sm">
+                            </div>
+                        </div>
 
-                        </select>
                     </td>
                 </tr>
             </table>

@@ -95,4 +95,35 @@ class UserRepository
         }
 
     }
+
+    public static function getLecturers()
+    {
+        $obj = new stdClass();
+        DbHelper::openConn();
+
+        try {
+            $sql = sprintf("SELECT * FROM easyqadb.user WHERE user_type_id = 3");
+            $result = DbHelper::runQuery($sql);
+
+            $obj->data = array();
+
+            while ($r = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                $rows['id'] = $r['id'];
+                $rows['title'] = $r['title'];
+                $rows['name'] = $r['name'];
+
+                array_push($obj->data, $rows);
+            }
+
+            $result->free();
+
+            $obj->s = true;
+            return $obj;
+        } catch (Exception $ex) {
+            $obj->s = false;
+            return $obj;
+        } finally {
+            DbHelper::closeConn();
+        }
+    }
 }

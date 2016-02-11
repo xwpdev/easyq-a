@@ -123,6 +123,14 @@
                     data: data,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
+            },
+            getLecturers: function (data) {
+                return $http({
+                    method: 'GET',
+                    url: baseUrl + 'getLecturers.php',
+                    data: data,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
             }
         };
     });
@@ -248,7 +256,7 @@
             $scope.status = false;
             $scope.css = 'warning';
             $scope.message = '';
-            $scope.userType = "2";
+            $scope.userType = {"id": 2};
             $scope.getUserTypes();
         }
 
@@ -309,6 +317,7 @@
         $scope.qData = '';
         $scope.init = function () {
             $scope.getData();
+            $scope.getLecturers();
         }
         $scope.getData = function () {
             var data = {
@@ -320,6 +329,27 @@
                     $scope.qData = d.data;
                 }
             });
+        }
+
+        $scope.getLecturers = function () {
+            var data = {};
+            questionService.getLecturers(data)
+                .success(function (d) {
+                    console.log(d);
+                    if (d.s) {
+                        $scope.lecturers = d.data;
+                        $scope.assignedLec = "";
+                    }
+                    else {
+                        $scope.css = 'danger';
+                        $scope.message = 'Error loading data. Please try again';
+                    }
+                })
+                .error(function (e) {
+                    console.log(e);
+                    $scope.css = 'danger';
+                    $scope.message = 'Error loading data. Please try again';
+                })
         }
     });
 
