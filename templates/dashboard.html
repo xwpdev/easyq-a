@@ -1,5 +1,5 @@
 <h1>Welcome, {{loginText}}</h1>
-<div ng-controller="dashboardController as dashCtrl" ng-init="init()">
+<section ng-controller="dashboardController as dashCtrl" ng-init="init()">
     <div class="row">
         <div class="col-md-6">
             <select class="form-control" ng-change="getData()" ng-model="searchOption"
@@ -24,11 +24,11 @@
                 </tr>
                 <tr ng-repeat="d in qData">
                     <td>
-                        <a href="#/question-view?{{d.id}}" ng-cloak class="h6">{{d.title}}</a>
+                        <a href="#/question-view?{{d.id}}" ng-cloak class="h6">{{d.title}}<span class="pull-right">View</span></a>
                     </td>
                     <td>{{d.asked_date}}</td>
                 </tr>
             </table>
         </div>
     </div>
-</div>
+</section>

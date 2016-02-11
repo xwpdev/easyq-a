@@ -6,16 +6,16 @@ class DbHelper
 
     public function openConn()
     {
-        $serverName = "127.0.0.1";
-        $username = "root";
-        $password = "";
-        $dbName = "easyqadb";
+//        $serverName = "127.0.0.1";
+//        $username = "root";
+//        $password = "";
+//        $dbName = "easyqadb";
 
         // CLOUD
-        // $serverName = "mysql2.gear.host";
-        // $username = "easyqadb";
-        // $password = "Tk00_4?XmoO9";
-        // $dbName = "easyqadb";
+         $serverName = "mysql2.gear.host";
+         $username = "easyqadb";
+         $password = "Mi8cy6!-iMCu";
+         $dbName = "easyqadb";
 
         // Create connection
         self::$conn = new mysqli($serverName, $username, $password, $dbName);

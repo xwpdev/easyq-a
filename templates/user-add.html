@@ -1,0 +1,53 @@
+<h2>Create new account</h2>
+<section class="container" ng-controller="registerController as regCtrl" ng-init="init();">
+    <form method="POST" ng-submit="registerForm.$valid && register()" name="registerForm">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <select ng-model="userType" class="form-control" name="userType">
+                    <option ng-repeat="u in userTypes" value="{{u.id}}">{{u.type}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input name="userEmail" ng-model="userEmail" type="email" placeholder="Email*" required
+                       class="form-control">
+            </div>
+            <div class="form-group">
+                <input name="userPass" type="password" placeholder="Password*" required class="form-control">
+            </div>
+            <div class="form-group">
+                <input name="userPassRe" ng-model="userPassRe" type="password" placeholder="Re-type Password*" required
+                       class="form-control">
+            </div>
+            <div class="form-group">
+                <select name="userTitle" class="form-control" ng-model="userTitle">
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Miss.">Miss.</option>
+                    <option value="Dr.">Dr.</option>
+                    <option value="Ven.">Ven.</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input name="userName" ng-model="userName" type="text" placeholder="Name*" required
+                       class="form-control">
+            </div>
+            <div class="form-group">
+            <textarea name="userAddress" ng-model="userAddress" style="max-width:100%; min-width: 100%" class="form-control"
+                      placeholder="Address"></textarea>
+            </div>
+            <div class="form-group">
+                <input name="userContact" ng-model="userContact" type="number" class="form-control"
+                       placeholder="Contact*"
+                       max="9999999999" min="0" required>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success btn-block login" type="submit">Register</button>
+            </div>
+        </div>
+        <div id="output">
+            <div class="alert alert-{{css}}" ng-show="status">
+                {{message}}
+            </div>
+        </div>
+    </form>
+</section>

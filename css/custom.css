@@ -20,7 +20,8 @@ body {
 }
 
 .section-padding-top {
-    margin-top: 65px !important;
+    margin-top: 67px !important;
+    margin-bottom: 50px;
 }
 
 /*@media (max-width: 320px) {*/

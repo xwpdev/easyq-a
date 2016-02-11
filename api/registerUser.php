@@ -19,6 +19,7 @@ $tempUser->title = $postData["userTitle"];
 $tempUser->name = $postData["userName"];
 $tempUser->address = $postData["userAddress"];
 $tempUser->contact = $postData["userContact"];
+$tempUser->type = $postData["userType"];
 $tempUser->isActive = true;
 
 $response = UserRepository::registerUser($tempUser);

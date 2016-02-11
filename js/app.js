@@ -52,7 +52,7 @@
             })
             .when('/user-add', {
                 templateUrl: 'templates/user-add.html',
-                controller: 'questionController'
+                controller: 'registerController'
             })
     });
 
@@ -115,6 +115,14 @@
                     data: data,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
+            },
+            getUserTypes: function (data) {
+                return $http({
+                    method: 'GET',
+                    url: baseUrl + 'getUserTypeData.php',
+                    data: data,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
             }
         };
     });
@@ -130,29 +138,49 @@
             $location.path("/");
             $rootScope.logged = false;
             $rootScope.loginText = "Login";
+            $rootScope.url = "/login";
         });
     });
 
     app.controller('navigationController', function ($scope, $rootScope, $location, questionService) {
-        $rootScope.loginText = "Login";
-        $rootScope.logged = false;
-
         // check for session
         var data = {};
         questionService.checkSession(data).success(function (d) {
-
             if (d.id > 0) {
                 $rootScope.logged = true;
                 $rootScope.loginText = d.name;
+
+                switch (d.userType) {
+                    case "1":
+                        // admin
+                        $rootScope.url = "/admin";
+                        break;
+                    case "2":
+                        // student
+                        $rootScope.url = "/dashboard";
+                        break;
+                    case "3":
+                        // lecturer
+                        $rootScope.url = "/lecturer";
+                        break;
+                    case "4":
+                        // moderator
+                        $rootScope.url = "/admin";
+                        break;
+                }
+
             }
             else {
                 $rootScope.logged = false;
                 $rootScope.loginText = "Login";
+                $rootScope.url = "/login";
             }
         });
 
         $scope.init = function () {
-
+            $rootScope.loginText = "Login";
+            $rootScope.logged = false;
+            $rootScope.url = "/login";
         }
     });
 
@@ -174,22 +202,27 @@
                     if (d.d.id > 0) {
                         $rootScope.logged = true;
                         $rootScope.loginText = d.d.name;
+                        $rootScope.url = "/login";
                         $scope.css = 'success';
                         switch (d.d.userType) {
                             case "1":
                                 // admin
+                                $rootScope.url = "/admin";
                                 $location.path('/admin');
                                 break;
                             case "2":
                                 // student
+                                $rootScope.url = "/dashboard";
                                 $location.path('/dashboard');
                                 break;
                             case "3":
                                 // lecturer
+                                $rootScope.url = "/lecturer";
                                 $location.path('/lecturer');
                                 break;
                             case "4":
                                 // moderator
+                                $rootScope.url = "/admin";
                                 $location.path('/admin');
                                 break;
                         }
@@ -211,10 +244,12 @@
 
     app.controller('registerController', function ($scope, questionService) {
         $scope.init = function () {
-            $scope.userTitle = "1";
+            $scope.userTitle = "Mr.";
             $scope.status = false;
             $scope.css = 'warning';
             $scope.message = '';
+            $scope.userType = "2";
+            $scope.getUserTypes();
         }
 
         $scope.register = function () {
@@ -224,7 +259,8 @@
                 userTitle: $scope.userTitle,
                 userName: $scope.userName,
                 userAddress: $scope.userAddress,
-                userContact: $scope.userContact
+                userContact: $scope.userContact,
+                userType: $scope.userType ? $scope.userType : 2
             };
 
             questionService.registerUser(data)
@@ -246,6 +282,26 @@
                     $scope.message = 'Registration failed. Please try again';
                 })
         };
+
+        $scope.getUserTypes = function () {
+            var data = {};
+
+            questionService.getUserTypes(data)
+                .success(function (d) {
+                    if (d.s) {
+                        $scope.userTypes = d.data;
+                    }
+                    else {
+                        $scope.css = 'danger';
+                        $scope.message = 'Error loading data. Please try again';
+                    }
+                })
+                .error(function (e) {
+                    console.log(e);
+                    $scope.css = 'danger';
+                    $scope.message = 'Error loading data. Please try again';
+                })
+        }
     });
 
     app.controller('dashboardController', function ($scope, $location, questionService) {

@@ -9,8 +9,8 @@
 
 /**
  * 1 Admin
- * 2 User
- * 3 Teacher
+ * 2 Student
+ * 3 Lecturer
  * 4 Moderator
  */
 class UserType

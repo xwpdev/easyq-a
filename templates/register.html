@@ -4,26 +4,31 @@
             <h2>Register</h2>
         </div>
         <div id="output">
-        <div class="alert alert-{{css}}" ng-show="status">
-            {{message}}
+            <div class="alert alert-{{css}}" ng-show="status">
+                {{message}}
+            </div>
         </div>
-    </div>
         <div class="form-box">
             <form method="POST" ng-submit="registerForm.$valid && register()" name="registerForm">
-                <input name="userEmail" ng-model="userEmail" type="email" placeholder="Email*" required class="form-control">
-                <input name="userPass"  type="password" placeholder="Password*" required class="form-control">
-                <input name="userPassRe" ng-model="userPassRe" type="password" placeholder="Re-type Password*" required class="form-control">
+                <input name="userEmail" ng-model="userEmail" type="email" placeholder="Email*" required
+                       class="form-control">
+                <input name="userPass" type="password" placeholder="Password*" required class="form-control">
+                <input name="userPassRe" ng-model="userPassRe" type="password" placeholder="Re-type Password*" required
+                       class="form-control">
                 <br>
                 <select name="userTitle" class="form-control" ng-model="userTitle">
-                    <option value="1">Mr.</option>
-                    <option value="2">Mrs.</option>
-                    <option value="3">Miss.</option>
-                    <option value="4">Dr.</option>
-                    <option value="5">Ven.</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Miss.">Miss.</option>
+                    <option value="Dr.">Dr.</option>
+                    <option value="Ven.">Ven.</option>
                 </select>
-                <input name="userName" ng-model="userName" type="text" placeholder="Name*" required class="form-control">
-                <textarea name="userAddress" ng-model="userAddress" style="max-width:100%" class="form-control" placeholder="Address"></textarea>
-                <input name="userContact" ng-model="userContact" type="number" class="form-control" placeholder="Contact*" max="9999999999" min="0" required>
+                <input name="userName" ng-model="userName" type="text" placeholder="Name*" required
+                       class="form-control">
+                <textarea name="userAddress" ng-model="userAddress" style="max-width:100%" class="form-control"
+                          placeholder="Address"></textarea>
+                <input name="userContact" ng-model="userContact" type="number" class="form-control"
+                       placeholder="Contact*" max="9999999999" min="0" required>
                 <button class="btn btn-success btn-block login" type="submit">Register</button>
             </form>
         </div>
