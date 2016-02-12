@@ -13,6 +13,13 @@ $postData = json_decode(file_get_contents("php://input"), true);
 
 $filter = $postData["f"];
 
-$data = QuestionRepository::getQuestions($filter);
+$questionData = QuestionRepository::getQuestions($filter);
 
-echo json_encode($data);
+$lecData = QuestionRepository::getLecturers();
+
+$obj = new stdClass();
+$obj->qData = $questionData;
+$obj->lData = $lecData;
+$obj->s = true;
+
+echo json_encode($obj);

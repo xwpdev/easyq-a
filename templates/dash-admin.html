@@ -20,27 +20,28 @@
             <table class="table table-bordered table-responsive set-back">
                 <tr>
                     <th class="h4" style="width: 50%">Questions</th>
-                    <th style="width:20%">Asked on</th>
-                    <th style="width:30%">Assign To</th>
+                    <th class="h4" style="width:20%">Asked on</th>
+                    <th class="h4" style="width:30%">Assign To</th>
                 </tr>
-                <tr ng-repeat="d in qData">
+                <tr ng-repeat="q in qData.data">
                     <td>
-                        <a href="#/question-view?{{d.id}}" ng-cloak class="h6">
+                        <a href="#/question-view?id={{q.id}}" ng-cloak class="h6">
                             <label class="text-info">
-                                {{d.title}}
+                                {{q.title}}
                             </label>
                         </a>
                     </td>
-                    <td>{{d.asked_date}}</td>
+                    <td>{{q.asked_date}}</td>
                     <td>
                         <div class="row">
                             <div class="col-md-9">
                                 <select name="lecturerSelect" id="lecturerSelect" class="form-control"
-                                        ng-options="option.name for option in lecturers track by option.id"
-                                        ng-model="assignedLec"></select>
+                                        ng-options="l.name for l in lData.data track by l.id"
+                                        ng-model="q.lecId"></select>
                             </div>
                             <div class="col-md-3 pull-right">
-                                <input type="button" value="Save" class="btn btn-info btn-sm">
+                                <input type="button" value="Save" class="btn btn-info btn-sm"
+                                       ng-click="setLecturer(q.id, q.lecId)">
                             </div>
                         </div>
 

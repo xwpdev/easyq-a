@@ -6,6 +6,6 @@
  * Time: 7:22 AM
  */
 require '../model/UserRepository.php';
+header('Content-type: application/json');
 $obj = UserRepository::getLecturers();
-
-echo  json_encode($obj);
+echo json_encode($obj);

@@ -50,6 +50,10 @@
                 templateUrl: 'templates/question-new.html',
                 controller: 'questionController'
             })
+            .when('/question-view/:id', {
+                templateUrl: 'templates/question-view.html',
+                controller: 'questionViewController'
+            })
             .when('/user-add', {
                 templateUrl: 'templates/user-add.html',
                 controller: 'registerController'
@@ -124,14 +128,22 @@
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             },
-            getLecturers: function (data) {
+            setLecturer: function (data) {
                 return $http({
-                    method: 'GET',
-                    url: baseUrl + 'getLecturers.php',
+                    method: 'POST',
+                    url: baseUrl + 'setLecturerToQuestion.php',
                     data: data,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             }
+            //getLecturers: function (data) {
+            //    return $http({
+            //        method: 'GET',
+            //        url: baseUrl + 'getLecturers.php',
+            //        data: data,
+            //        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            //    });
+            //}
         };
     });
 
@@ -268,7 +280,7 @@
                 userName: $scope.userName,
                 userAddress: $scope.userAddress,
                 userContact: $scope.userContact,
-                userType: $scope.userType ? $scope.userType : 2
+                userType: $scope.userType ? $scope.userType.id : 2
             };
 
             questionService.registerUser(data)
@@ -317,39 +329,55 @@
         $scope.qData = '';
         $scope.init = function () {
             $scope.getData();
-            $scope.getLecturers();
+            // $scope.getLecturers();
         }
         $scope.getData = function () {
             var data = {
                 f: $scope.searchOption
             };
             questionService.getQuestionData(data).success(function (d) {
-                console.log(d);
                 if (d.s) {
-                    $scope.qData = d.data;
+                    // console.log(d.qData);
+                    $scope.qData = d.qData;
+                    $scope.lData = d.lData;
                 }
             });
         }
 
-        $scope.getLecturers = function () {
-            var data = {};
-            questionService.getLecturers(data)
+        //$scope.getLecturers = function () {
+        //    var data = {};
+        //    questionService.getLecturers(data)
+        //        .success(function (d) {
+        //            if (d.s) {
+        //                $scope.lecturers = d.data;
+        //            }
+        //            else {
+        //                $scope.css = 'danger';
+        //                $scope.message = 'Error loading data. Please try again';
+        //            }
+        //        })
+        //        .error(function (e) {
+        //            console.log(e);
+        //            $scope.css = 'danger';
+        //            $scope.message = 'Error loading data. Please try again';
+        //        })
+        //}
+
+        $scope.setLecturer = function (i, t) {
+            console.log(i);
+            console.log(t.id);
+
+            var data = {
+                lecId: t.id,
+                qId: i
+            };
+            questionService.setLecturer(data)
                 .success(function (d) {
-                    console.log(d);
-                    if (d.s) {
-                        $scope.lecturers = d.data;
-                        $scope.assignedLec = "";
-                    }
-                    else {
-                        $scope.css = 'danger';
-                        $scope.message = 'Error loading data. Please try again';
-                    }
+
                 })
                 .error(function (e) {
                     console.log(e);
-                    $scope.css = 'danger';
-                    $scope.message = 'Error loading data. Please try again';
-                })
+                });
         }
     });
 
@@ -387,4 +415,12 @@
             });
         }
     });
+
+    app.controller('questionViewController', function ($scope, $routeParams, $location, questionService) {
+        $scope.init = function () {
+            console.log('test');
+            console.log($routeParams.id);
+        }
+    })
+
 })();

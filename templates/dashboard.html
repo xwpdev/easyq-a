@@ -20,11 +20,15 @@
             <table class="table table-bordered table-responsive set-back">
                 <tr>
                     <th class="h4" style="width: 70%">Questions</th>
-                    <th style="width:30%">Asked on</th>
+                    <th class="h4" style="width:30%">Asked on</th>
                 </tr>
                 <tr ng-repeat="d in qData">
                     <td>
-                        <a href="#/question-view?{{d.id}}" ng-cloak class="h6">{{d.title}}<span class="pull-right">View</span></a>
+                        <a href="#/question-view?{{d.id}}" ng-cloak class="h6">
+                            <label class="text-info">
+                                {{d.title}}
+                            </label>
+                            <span class="pull-right">View</span></a>
                     </td>
                     <td>{{d.asked_date}}</td>
                 </tr>
