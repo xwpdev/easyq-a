@@ -112,6 +112,68 @@ class QuestionRepository
         }
     }
 
+    public static function getQuestionById($id)
+    {
+        $obj = new stdClass();
+        $con = DbHelper::openConn();
+
+        try {
+            $sql = sprintf("SELECT * FROM easyqadb.question WHERE id = '%s'", $id);
+            $result = DbHelper::runQuery($sql);
+            $obj->data = array();
+
+            while ($r = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                $rows['id'] = $r['id'];
+                $rows['title'] = $r['title'];
+                $rows['text'] = $r['text'];
+                $rows['asked_date'] = $r['asked_date'];
+                $rows['user_id'] = $r['user_id'];
+
+                array_push($obj->data, $rows);
+            }
+
+            $result->free();
+
+            $obj->s = true;
+
+        } catch (Exception $ex) {
+            $obj->s = false;
+        } finally {
+            DbHelper::closeConn();
+            return $obj;
+        }
+    }
+
+    public static function getUserById($id)
+    {
+        $obj = new stdClass();
+        $con = DbHelper::openConn();
+
+        try {
+            $sql = sprintf("SELECT * FROM easyqadb.user WHERE id = '%s'", $id);
+            $result = DbHelper::runQuery($sql);
+            $obj->data = array();
+
+            while ($r = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                $rows['id'] = $r['id'];
+                $rows['title'] = $r['title'];
+                $rows['name'] = $r['name'];
+                $rows['email'] = $r['email'];
+                array_push($obj->data, $rows);
+            }
+
+            $result->free();
+
+            $obj->s = true;
+
+        } catch (Exception $ex) {
+            $obj->s = false;
+        } finally {
+            DbHelper::closeConn();
+            return $obj;
+        }
+    }
+
     public static function setLecturer($qid, $lecId)
     {
         $obj = new stdClass();

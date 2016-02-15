@@ -1,3 +1,28 @@
 <section ng-controller="questionViewController as questionCtrl" ng-init="init()">
-
+    <div class="row">
+        <h3>Sample Title</h3>
+        <span>asked by:&nbsp;</span><span>Author</span><span>&nbsp;on&nbsp;</span><span>Date</span>
+        <br>
+        <div class="col-md-8">
+            <textarea style="max-width:100%;min-width: 100%" disabled>Sample text</textarea>
+        </div>
+        <div class="col-md-4">
+            <input type="button" class="btn btn-info" value="Add Answer" ng-click="showAnswerPanel()">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <h5>Answers</h5>
+        <div class="col-md-8">
+            <span>by&nbsp;</span><span>Lecturer</span>
+            <textarea style="max-width:100%;min-width: 100%" disabled>Sample Answer</textarea>
+        </div>
+    </div>
+    <br>
+    <div class="row" id="addAnswerPanel" ng-show="addAnswerPanel">
+        <div class="col-md-8">
+            <textarea style="max-width:100%;min-width: 100%" id="answerAdd">Sample Answer</textarea>
+            <input type="button" value="Save" class="btn btn-success">
+        </div>
+    </div>
 </section>

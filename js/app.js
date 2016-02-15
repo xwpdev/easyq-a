@@ -135,6 +135,14 @@
                     data: data,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
+            },
+            questionById: function (data) {
+                return $http({
+                    method: 'POST',
+                    url: baseUrl + 'getQuestionById.php',
+                    data: data,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
             }
             //getLecturers: function (data) {
             //    return $http({
@@ -329,7 +337,6 @@
         $scope.qData = '';
         $scope.init = function () {
             $scope.getData();
-            // $scope.getLecturers();
         }
         $scope.getData = function () {
             var data = {
@@ -420,7 +427,21 @@
         $scope.init = function () {
             console.log('test');
             console.log($routeParams.id);
+
+            $scope.addAnswerPanel = false;
+            // get question by id
+            var postData = {id: $routeParams.id};
+            questionService.questionById(postData).success(function(d){
+                console.log(d);
+            });
+            // get answers by question id
         }
+
+        $scope.showAnswerPanel = function () {
+            $scope.addAnswerPanel = true;
+        }
+
+        // save answer
     })
 
 })();

@@ -7,6 +7,6 @@
  */
 
 require '../model/UserRepository.php';
+header('Content-type: application/json');
 $obj = UserRepository::getUserTypes();
-
 echo  json_encode($obj);
