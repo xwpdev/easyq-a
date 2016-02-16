@@ -3,27 +3,25 @@
         <h2>{{question.title}}</h2>
         <span style="font-style: italic">
             <span>asked by:&nbsp;</span><span
-                style="font-weight: bold">{{author}}</span><span>&nbsp;on&nbsp;</span><span>{{question.asked_date}}</span>
+                style="font-weight: bold">{{question.name}}</span><span>&nbsp;on&nbsp;</span><span>{{question.asked_date}}</span>
         </span>
         <br>
         <h4 ng-bind-html="question.text | unsafe">
         </h4>
         <br/>
-        <input type="button" class="btn btn-info" value="Add Answer" ng-click="showAnswerPanel()">
+        <input type="button" class="btn btn-info" value="Add Answer" ng-click="showAnswerPanel()" ng-show="addAnsBtn">
     </div>
     <br>
     <div class="row">
-        <h5>Answers</h5>
-        <div class="col-md-8" ng-repeat="ans in answers">
+        <div class="col-md-8" ng-repeat="ans in answers" ng-show="{{answers.length>0}}">
+            <h5>Answers</h5>
             <span>by&nbsp;</span>{{ans.name}}<span></span>
             <textarea style="max-width:100%;min-width: 100%" disabled>{{ans.text}}</textarea>
         </div>
     </div>
     <br>
     <div class="row" id="addAnswerPanel" ng-show="addAnswerPanel">
-        <div class="col-md-8">
-            <textarea style="max-width:100%;min-width: 100%" id="answerAdd">Sample Answer</textarea>
-            <input type="button" value="Save" class="btn btn-success">
-        </div>
+        <textarea style="max-width:100%;min-width: 100%" id="answerAdd" ng-model="newAnswer"></textarea>
+        <input type="button" value="Save" class="btn btn-success" ng-click="saveAnswer(question.id)">
     </div>
 </section>

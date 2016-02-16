@@ -149,14 +149,6 @@
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
             },
-            userById: function (data) {
-                return $http({
-                    method: 'POST',
-                    url: baseUrl + 'getUserById.php',
-                    data: data,
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                });
-            },
             getAnswers: function (data) {
                 return $http({
                     method: 'POST',
@@ -164,15 +156,23 @@
                     data: data,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
+            },
+            getLecturers: function (data) {
+                return $http({
+                    method: 'GET',
+                    url: baseUrl + 'getLecturers.php',
+                    data: data,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            },
+            saveAnswer: function (data) {
+                return $http({
+                    method: 'POST',
+                    url: baseUrl + 'saveAnswerByQuestion.php',
+                    data: data,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
             }
-            //getLecturers: function (data) {
-            //    return $http({
-            //        method: 'GET',
-            //        url: baseUrl + 'getLecturers.php',
-            //        data: data,
-            //        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-            //    });
-            //}
         };
     });
 
@@ -198,7 +198,7 @@
             if (d.id > 0) {
                 $rootScope.logged = true;
                 $rootScope.loginText = d.name;
-
+                $rootScope.userType = d.userType;
                 switch (d.userType) {
                     case "1":
                         // admin
@@ -444,19 +444,21 @@
         }
     });
 
-    app.controller('questionViewController', function ($scope, $routeParams, $location, questionService) {
+    app.controller('questionViewController', function ($scope, $rootScope, $routeParams, $location, questionService) {
         $scope.init = function () {
             $scope.addAnswerPanel = false;
+            $scope.addAnsBtn = false;
+            if ($rootScope.userType != "2") {
+                $scope.addAnsBtn = true;
+            }
+            $scope.newAnswer = "";
+
             // get question by id
             var postData = {id: $routeParams.id};
             questionService.questionById(postData).success(function (d) {
                 // console.log(d);
                 if (d.s) {
                     $scope.question = d.data[0];
-                    var qData = {id: d.data[0].user_id};
-                    questionService.userById(qData).success(function (dd) {
-                        $scope.author = dd.data[0].title + " " + dd.data[0].name;
-                    });
                     var aData = {id: d.data[0].id};
                     questionService.getAnswers(aData).success(function (ddd) {
                         $scope.answers = ddd.data;
@@ -464,12 +466,17 @@
                 }
             });
         }
-
         $scope.showAnswerPanel = function () {
             $scope.addAnswerPanel = true;
         }
 
-        // save answer
+        $scope.saveAnswer = function (id) {
+            var data = {id: id, ans: $scope.newAnswer};
+            questionService.saveAnswer(data).success(function (d) {
+                console.log(d);
+            });
+        }
+
     })
 
 })();

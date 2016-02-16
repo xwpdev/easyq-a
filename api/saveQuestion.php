@@ -37,8 +37,7 @@ if ($qId > 0) {
     $response = QuestionRepository::saveTags($tags, $qId);
     if ($response) {
         $obj->s = true;
-    }
-    else{
+    } else {
         $obj->s = false;
     }
 } else {

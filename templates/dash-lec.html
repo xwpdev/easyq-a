@@ -1,1 +1,38 @@
-<h2>Lecturer Dashboard</h2>
+<h1>Welcome, {{loginText}}</h1>
+<section ng-controller="dashboardController as dashCtrl" ng-init="init()">
+    <div class="row">
+        <div class="col-md-6">
+            <select class="form-control" ng-change="getData()" ng-model="searchOption"
+                    title="Change to update quizzes" data-toggle="tooltip">
+                <option value="1">All</option>
+                <option value="2">Unassigned Questions</option>
+                <option value="3">Unanswered Questions</option>
+                <option value="4">Assigned & Answered Questions</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <a href="#/question-new" class="btn btn-info">Add New Question</a>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-responsive set-back">
+                <tr>
+                    <th class="h4" style="width: 70%">Questions</th>
+                    <th class="h4" style="width:30%">Asked on</th>
+                </tr>
+                <tr ng-repeat="q in qData.data">
+                    <td>
+                        <a href="#/question-view/{{q.id}}" ng-cloak class="h6">
+                            <label class="text-info">
+                                {{q.title}}
+                            </label>
+                            <span class="pull-right">View</span></a>
+                    </td>
+                    <td>{{q.asked_date}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>

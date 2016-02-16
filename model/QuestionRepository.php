@@ -118,17 +118,19 @@ class QuestionRepository
         $con = DbHelper::openConn();
 
         try {
-            $sql = sprintf("SELECT * FROM easyqadb.question WHERE id = '%s'", $id);
+            $sql = sprintf("SELECT question.id, question.title as question,  question.text, question.asked_date, user.title, user.name FROM easyqadb.question INNER JOIN easyqadb.user ON question.user_id =user.id WHERE question.id = '%s'", $id);
             $result = DbHelper::runQuery($sql);
             $obj->data = array();
 
             while ($r = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                 $rows['id'] = $r['id'];
-                $rows['title'] = $r['title'];
+                $rows['title'] = $r['question'];
                 $rows['text'] = $r['text'];
                 $rows['asked_date'] = $r['asked_date'];
-                $rows['user_id'] = $r['user_id'];
-                $rows['assigned_user_id'] = $r['assigned_user_id'];
+                $rows['name'] = $r['title'] . " " . $r['name'];
+                // $rows['user_id'] = $r['user_id'];
+                // $rows['assigned_user_id'] = $r['assigned_user_id'];
+
 
                 array_push($obj->data, $rows);
             }
@@ -251,6 +253,33 @@ class QuestionRepository
             return $obj;
         } finally {
             DbHelper::closeConn();
+        }
+    }
+
+    public static function saveAnswer($answer = null)
+    {
+        if ($answer != null) {
+            $con = DbHelper::openConn();
+
+            $sql = sprintf("INSERT INTO easyqadb.answer(question_id, user_id, text) VALUES ('%u','%u','%s')",
+                $answer->questionId, $answer->userId, $answer->text);
+
+            try {
+                $result = DbHelper::runQuery($sql);
+
+                if ($result == 1) {
+                    $newId = mysqli_insert_id($con);
+                } else {
+                    $newId = 0;
+                }
+
+                return $newId;
+
+            } catch (Exception $ex) {
+                return 0;
+            } finally {
+                DbHelper::closeConn();
+            }
         }
     }
 }

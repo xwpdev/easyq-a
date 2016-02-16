@@ -22,15 +22,15 @@
                     <th class="h4" style="width: 70%">Questions</th>
                     <th class="h4" style="width:30%">Asked on</th>
                 </tr>
-                <tr ng-repeat="d in qData">
+                <tr ng-repeat="q in qData.data">
                     <td>
                         <a href="#/question-view/{{q.id}}" ng-cloak class="h6">
                             <label class="text-info">
-                                {{d.title}}
+                                {{q.title}}
                             </label>
                             <span class="pull-right">View</span></a>
                     </td>
-                    <td>{{d.asked_date}}</td>
+                    <td>{{q.asked_date}}</td>
                 </tr>
             </table>
         </div>
