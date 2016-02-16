@@ -128,6 +128,7 @@ class QuestionRepository
                 $rows['text'] = $r['text'];
                 $rows['asked_date'] = $r['asked_date'];
                 $rows['user_id'] = $r['user_id'];
+                $rows['assigned_user_id'] = $r['assigned_user_id'];
 
                 array_push($obj->data, $rows);
             }
@@ -141,6 +142,38 @@ class QuestionRepository
         } finally {
             DbHelper::closeConn();
             return $obj;
+        }
+    }
+
+    public static function getAnswersByQuestionId($id)
+    {
+        $obj = new stdClass();
+        DbHelper::openConn();
+
+        try {
+            $sql = sprintf("SELECT * FROM easyqadb.answer INNER JOIN easyqadb.user ON answer.user_id =user.id WHERE question_id = '%s'", $id);
+            $result = DbHelper::runQuery($sql);
+
+            $obj->data = array();
+
+            while ($r = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                $rows['id'] = $r['id'];
+                $rows['text'] = $r['text'];
+                $rows['user_id'] = $r['user_id'];
+                $rows['name'] = $r['title'] . " " . $r['name'];
+
+                array_push($obj->data, $rows);
+            }
+
+            $result->free();
+
+            $obj->s = true;
+            return $obj;
+        } catch (Exception $ex) {
+            $obj->s = false;
+            return $obj;
+        } finally {
+            DbHelper::closeConn();
         }
     }
 
@@ -159,6 +192,7 @@ class QuestionRepository
                 $rows['title'] = $r['title'];
                 $rows['name'] = $r['name'];
                 $rows['email'] = $r['email'];
+
                 array_push($obj->data, $rows);
             }
 

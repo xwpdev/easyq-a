@@ -1,21 +1,22 @@
 <section ng-controller="questionViewController as questionCtrl" ng-init="init()">
     <div class="row">
-        <h3>Sample Title</h3>
-        <span>asked by:&nbsp;</span><span>Author</span><span>&nbsp;on&nbsp;</span><span>Date</span>
+        <h2>{{question.title}}</h2>
+        <span style="font-style: italic">
+            <span>asked by:&nbsp;</span><span
+                style="font-weight: bold">{{author}}</span><span>&nbsp;on&nbsp;</span><span>{{question.asked_date}}</span>
+        </span>
         <br>
-        <div class="col-md-8">
-            <textarea style="max-width:100%;min-width: 100%" disabled>Sample text</textarea>
-        </div>
-        <div class="col-md-4">
-            <input type="button" class="btn btn-info" value="Add Answer" ng-click="showAnswerPanel()">
-        </div>
+        <h4 ng-bind-html="question.text | unsafe">
+        </h4>
+        <br/>
+        <input type="button" class="btn btn-info" value="Add Answer" ng-click="showAnswerPanel()">
     </div>
     <br>
     <div class="row">
         <h5>Answers</h5>
-        <div class="col-md-8">
-            <span>by&nbsp;</span><span>Lecturer</span>
-            <textarea style="max-width:100%;min-width: 100%" disabled>Sample Answer</textarea>
+        <div class="col-md-8" ng-repeat="ans in answers">
+            <span>by&nbsp;</span>{{ans.name}}<span></span>
+            <textarea style="max-width:100%;min-width: 100%" disabled>{{ans.text}}</textarea>
         </div>
     </div>
     <br>

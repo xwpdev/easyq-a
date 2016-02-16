@@ -15,6 +15,11 @@
             questionService.setSession(data);
         });
 
+    // FILTERS
+    app.filter('unsafe', function ($sce) {
+        return $sce.trustAsHtml;
+    });
+
     // ROUTING //
     app.config(function ($routeProvider) {
         $routeProvider
@@ -140,6 +145,22 @@
                 return $http({
                     method: 'POST',
                     url: baseUrl + 'getQuestionById.php',
+                    data: data,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            },
+            userById: function (data) {
+                return $http({
+                    method: 'POST',
+                    url: baseUrl + 'getUserById.php',
+                    data: data,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                });
+            },
+            getAnswers: function (data) {
+                return $http({
+                    method: 'POST',
+                    url: baseUrl + 'getAnswersByQuestion.php',
                     data: data,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 });
@@ -425,16 +446,23 @@
 
     app.controller('questionViewController', function ($scope, $routeParams, $location, questionService) {
         $scope.init = function () {
-            console.log('test');
-            console.log($routeParams.id);
-
             $scope.addAnswerPanel = false;
             // get question by id
             var postData = {id: $routeParams.id};
-            questionService.questionById(postData).success(function(d){
-                console.log(d);
+            questionService.questionById(postData).success(function (d) {
+                // console.log(d);
+                if (d.s) {
+                    $scope.question = d.data[0];
+                    var qData = {id: d.data[0].user_id};
+                    questionService.userById(qData).success(function (dd) {
+                        $scope.author = dd.data[0].title + " " + dd.data[0].name;
+                    });
+                    var aData = {id: d.data[0].id};
+                    questionService.getAnswers(aData).success(function (ddd) {
+                        $scope.answers = ddd.data;
+                    });
+                }
             });
-            // get answers by question id
         }
 
         $scope.showAnswerPanel = function () {
